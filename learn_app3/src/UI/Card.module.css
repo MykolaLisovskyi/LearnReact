@@ -1,0 +1,9 @@
+.card{
+    background-color: white;
+ 
+    max-width: 800px;
+    place-self: center;
+    margin:0px auto;
+    margin-top: 20px;
+    width: 100%;
+}

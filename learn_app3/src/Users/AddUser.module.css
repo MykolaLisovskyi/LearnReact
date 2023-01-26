@@ -1,0 +1,20 @@
+.addUser form{
+    display: flex;
+    flex-flow: column;
+    max-width: 600px;
+    place-items:left;
+    width: 100%;
+    color: black;
+    margin: 0px auto;
+    place-self: center;
+    padding: 30px 0px;
+}
+.addUser form input{
+margin:10px 0px;
+height: 40px;
+}
+.submit{
+    height: 40px;
+    margin-top: 15px;
+    
+}
