@@ -6,25 +6,22 @@ import Button from "../UI/Button";
 const AddUser = (props) => {
 
  const [userName, setUserName] = useState('');
- const [age, setAge] = useState('');
+ const [userAge, setAge] = useState('');
 
   const AddUserHandler = (event) => {
     event.preventDefault();
 
-    if(userName.trim().length === 0 || age.trim().length === 0){
+    if(userName.trim().length === 0 || userAge.trim().length === 0){
          return;
     }
-    if(+age < 1 ){
+    if(+userAge < 1 ){
         return;
     }
-    console.log(userName, age);
+    console.log(userName, userAge);
+    props.setData(userName, userAge)
     setUserName('');
     setAge('');
-    props.setData(prevUsers => {
-        const updatedUsers = [...prevUsers];
-        updatedUsers.unshift({ name: userName, age:age, id: Math.random().toString() });
-        return updatedUsers;
-      });
+  
   };
 
   const usernameChangeHandler = (event) => {
@@ -32,7 +29,7 @@ const AddUser = (props) => {
     
   };
 
-  const ageChangeHandler = (event) => {
+  const userAgeChangeHandler = (event) => {
     setAge(event.target.value);
   };
 
@@ -42,8 +39,8 @@ const AddUser = (props) => {
         <form className="" onSubmit={AddUserHandler}>
           <label htmlFor="username" >Username</label>
           <input type="text" id="username" value={userName} onChange={usernameChangeHandler} />
-          <label htmlFor="age">Age</label>
-          <input type="number" id="age" value={age} onChange={ageChangeHandler}/>
+          <label htmlFor="userAge">Age</label>
+          <input type="number" id="userAge" value={userAge} onChange={userAgeChangeHandler}/>
           <Button cssClass={styles.submit} type='submit' process={AddUserHandler}></Button>
         </form>
       </Card>
