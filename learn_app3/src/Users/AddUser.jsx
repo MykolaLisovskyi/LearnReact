@@ -1,47 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
 import Button from "../UI/Button";
+import ModuleMessage from "../UI/ModuleMessage";
 
 const AddUser = (props) => {
 
- const [userName, setUserName] = useState('');
- const [userAge, setAge] = useState('');
+const nameInputRef = useRef();
+const ageInputRef = useRef();
+
+
+  const [error, setError] = useState("");
+
+  const closeError = () => {
+    setError();
+    return error;
+  };
 
   const AddUserHandler = (event) => {
     event.preventDefault();
+const userNameRef = nameInputRef.current.value;
+const userAgeRef = ageInputRef.current.value;
 
-    if(userName.trim().length === 0 || userAge.trim().length === 0){
-         return;
+    if (userNameRef.trim().length === 0 || userAgeRef.trim().length === 0) {
+      setError(
+        <ModuleMessage
+          title="An error occured"
+          message="Username and Age must be filled "
+          process={closeError}
+        ></ModuleMessage>
+      );
+      return error;
     }
-    if(+userAge < 1 ){
-        return;
+    if (+userAgeRef < 1) {
+      setError(
+        <ModuleMessage
+          title="An error occured"
+          message="Age<1"
+          process={closeError}
+        ></ModuleMessage>
+      );
+      return error;
     }
-    console.log(userName, userAge);
-    props.setData(userName, userAge)
-    setUserName('');
-    setAge('');
-  
+    console.log(userNameRef, userAgeRef);
+    props.setData(userNameRef, userAgeRef);
+    nameInputRef.current.value='';
+    ageInputRef.current.value='';
+
   };
 
-  const usernameChangeHandler = (event) => {
-    setUserName(event.target.value);
-    
-  };
-
-  const userAgeChangeHandler = (event) => {
-    setAge(event.target.value);
-  };
 
   return (
     <>
+      {error}
       <Card cssClass={styles.addUser}>
         <form className="" onSubmit={AddUserHandler}>
-          <label htmlFor="username" >Username</label>
-          <input type="text" id="username" value={userName} onChange={usernameChangeHandler} />
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+        
+            ref={nameInputRef}
+          />
           <label htmlFor="userAge">Age</label>
-          <input type="number" id="userAge" value={userAge} onChange={userAgeChangeHandler}/>
-          <Button cssClass={styles.submit} type='submit' process={AddUserHandler}></Button>
+          <input
+            type="number"
+            id="userAge"
+   
+            ref={ageInputRef}
+          />
+          <Button
+            cssClass={styles.submit}
+            type="submit"
+            process={AddUserHandler}
+          ></Button>
         </form>
       </Card>
     </>
