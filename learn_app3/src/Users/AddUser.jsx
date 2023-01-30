@@ -35,7 +35,7 @@ const userAgeRef = ageInputRef.current.value;
     if (+userAgeRef < 1) {
       setError(
         <ModuleMessage
-          title="An error occured"
+          title="An error occureds"
           message="Age<1"
           process={closeError}
         ></ModuleMessage>
